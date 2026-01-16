@@ -13,3 +13,12 @@ langchain-text-splitters
 sentence-transformers
 chromadb
 bs4
+fastapi
+uvicorn
+python-dotenv
+langchain
+langgraph
+langchain-community
+langchain-groq
+pydantic
+requests

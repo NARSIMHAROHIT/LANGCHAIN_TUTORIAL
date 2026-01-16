@@ -9,8 +9,9 @@ from langchain.agents import create_agent
 from dotenv import load_dotenv
 load_dotenv()
 
-from Prompts import SYSTEM_PROMPT
-from tools import (
+from app.agents.Prompts import SYSTEM_PROMPT
+
+from app.agents.tools import (
     Context,
     read_linux_documentation,
     read_systemd_documentation,
@@ -57,19 +58,22 @@ agent = create_agent(
 
 config = {"configurable": {"thread_id": "1"}}
 
-print("\nType 'exit' or 'quit' to end the chat.\n")
-while True:
-    user_input = input("You: ").strip()
+if __name__ == "__main__":
+    # chat loop here
 
-    if user_input.lower() in {"exit", "quit"}:
-        print("Goodbye 👋")
-        break
+    print("\nType 'exit' or 'quit' to end the chat.\n")
+    while True:
+        user_input = input("You: ").strip()
 
-    response = agent.invoke(
-        {"messages": [{"role": "user", "content": user_input}]},
-        config=config,
-        context=Context(user_id="1"),
-    )
+        if user_input.lower() in {"exit", "quit"}:
+            print("Goodbye 👋")
+            break
 
-    final_message = response["messages"][-1]
-    print("Agent:", final_message.content)
+        response = agent.invoke(
+            {"messages": [{"role": "user", "content": user_input}]},
+            config=config,
+            context=Context(user_id="1"),
+        )
+
+        final_message = response["messages"][-1]
+        print("Agent:", final_message.content)
